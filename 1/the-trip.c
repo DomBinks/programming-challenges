@@ -6,11 +6,12 @@ int main()
 {
     int number_of_students;
     int number_above_average;
-    float student_payments[1000];
-    float total_sum;
-    float per_person;
+    float input;
+    int student_payments[1000];
+    int total_sum;
+    int per_person;
     int cents_left;
-    float change_hands;
+    int change_hands;
     int i;
     
     while (scanf("%i\n", &number_of_students) != EOF)
@@ -21,39 +22,32 @@ int main()
         }
         
         number_above_average = 0;
-        total_sum = 0.0;
-        change_hands = 0.0;
-        memset(student_payments, 0.0, sizeof student_payments);
+        total_sum = 0;
+        change_hands = 0;
+        memset(student_payments, 0, sizeof student_payments);
  
         for (i = 0; i < number_of_students; i++)
         {
-            scanf("%f\n", &student_payments[i]); 
-            student_payments[i] *= 100;
+            scanf("%f\n", &input); 
+            student_payments[i] = (int) (input * 100);
             total_sum += student_payments[i]; 
         }
 
-        per_person = (float) (int) (total_sum / number_of_students);
+        per_person = (int) (total_sum / number_of_students);
+        cents_left = total_sum % number_of_students; 
         
         for (i = 0; i < number_of_students; i++)
         {
-            if (student_payments[i] < per_person)
+            if (student_payments[i] > per_person)
             {
-                change_hands += (per_person - student_payments[i]);
-            }
-
-            else
-            {
+                change_hands += (student_payments[i] - per_person);
                 number_above_average++;
             }
         }
 
-        cents_left = (int) total_sum % number_of_students;
-        if (cents_left > 0 && cents_left > number_above_average)
-        {
-            change_hands += (float) (cents_left - number_above_average);
-        }
+        change_hands -= (cents_left - number_above_average);
         
-        printf("$%0.2f\n", change_hands / 100);
+        printf("$%0.2f\n", change_hands / 100.0);
     }
 
     return 0;
