@@ -5,7 +5,7 @@
 int main()
 {
     int number_of_students;
-    int number_above_average;
+    int number_owed;
     float input;
     int student_payments[1000];
     int total_sum;
@@ -21,7 +21,7 @@ int main()
             break;
         }
         
-        number_above_average = 0;
+        number_owed = 0;
         total_sum = 0;
         change_hands = 0;
         memset(student_payments, 0, sizeof student_payments);
@@ -38,14 +38,20 @@ int main()
         
         for (i = 0; i < number_of_students; i++)
         {
-            if (student_payments[i] > per_person)
+            if (student_payments[i] < per_person)
             {
-                change_hands += (student_payments[i] - per_person);
-                number_above_average++;
+                change_hands += (per_person - student_payments[i]);
+            } 
+            else
+            {
+                number_owed++;
             }
         }
 
-        change_hands -= (cents_left - number_above_average);
+        if (cents_left > number_owed)
+        {
+            change_hands += (cents_left - number_owed);
+        }
         
         printf("$%0.2f\n", change_hands / 100.0);
     }
