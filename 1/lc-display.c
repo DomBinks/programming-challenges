@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
+int num_in;
+char num[9];
 int size;
 char output[23][96];
 
@@ -26,8 +28,6 @@ void vertical_line(int start_row, int col)
 
 int main()
 {
-    int num_in;
-    char num[8];
     int col;
     int i;
     int j;
@@ -42,7 +42,7 @@ int main()
         sprintf(num, "%i", num_in);
         memset(output, ' ', sizeof output);
 
-        for (i = 0, col = 0; strlen(num); i++, col += size + 3)
+        for (i = 0, col = 0; i < strlen(num); i++, col += size + 3)
         {
             switch (num[i])
             {
@@ -104,6 +104,7 @@ int main()
                     horizontal_bar(0,col+1);
                     vertical_line(1,col+size+1);
                     vertical_line(size+2,col+size+1);
+                    break;
  
                 case '8':
                     horizontal_bar(0,col+1);
@@ -125,13 +126,14 @@ int main()
                     break;
                 
                 default:
+                    printf("Error\n"); 
                     return 1;
             }
         }
 
         for (i = 0; i < (2*size) + 3; i++)
         {
-            for (j = 0; j < (size + 2) * strlen(num); j++)
+            for (j = 0; j < 96; j++)
             {
                 printf("%c", output[i][j]);
             }
