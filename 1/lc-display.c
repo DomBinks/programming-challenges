@@ -4,7 +4,7 @@
 int num_in;
 char num[9];
 int size;
-char output[23][96];
+char output[23][103];
 
 void horizontal_bar(int row, int start_col)
 {
@@ -133,7 +133,7 @@ int main()
 
         for (i = 0; i < (2*size) + 3; i++)
         {
-            for (j = 0; j < 96; j++)
+            for (j = 0; j < ((size + 2) * strlen(num)) + strlen(num) - 1; j++)
             {
                 printf("%c", output[i][j]);
             }
